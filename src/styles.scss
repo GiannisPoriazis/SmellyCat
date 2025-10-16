@@ -1,1 +1,42 @@
-/* You can add global styles to this file, and also import other style files */
+@import "tailwindcss";
+
+@font-face {
+  font-family: 'Figtree';
+  src: url('/assets/fonts/Figtree.ttf') format('truetype');
+  font-style: normal;
+}
+
+@theme {
+  --font-figtree: 'Figtree', sans-serif;
+  --primary-color: #3d2929;
+  --secondary-color: #e26060;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  overflow-x: hidden;
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: #e4e6eb;
+  font-family: var(--font-figtree);
+  color: var(--primary-color);
+  overflow-x: hidden;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  min-height: 100vh;
+}
+
+.disabled:disabled {
+  cursor: default;
+  background-color: #9e9e9e;
+}
+
+.active {
+  color: var(--secondary-color);
+}

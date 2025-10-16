@@ -1,0 +1,128 @@
+<section>
+	<div class="flex flex-col xl:flex-row justify-center text-[#3d2929] font-bold relative gap-6 xl:gap-0">
+		<div class="flex-1 xl:mr-10 pb-10 xl:pb-20">
+			<h1 class="text-xl md:text-2xl">Contact us</h1>
+			<p class="mt-4 text-sm md:text-base">
+				We are all cat persons, so if you got a question,<br class="hidden sm:block"/>
+				meow it below and we will contact you back!
+			</p>
+			<form
+				[formGroup]="contactForm"
+				(ngSubmit)="onSubmit()"
+				class="max-w-full xl:max-w-lg"
+				autocomplete="off"
+			>
+				<div class="flow-root">
+					<p class="my-4 md:my-6 text-sm md:text-base">Your contact information</p>
+					<div class="mb-6 md:mb-10">
+						<label for="fullName" class="text-[#7f8387] block text-sm/6 font-medium">Full Name*</label>
+						<div class="mt-2">
+							<div class="flex items-center rounded-md outline-1 -outline-offset-1 outline-gray-300 has-[input:focus-within]:outline-2 has-[input:focus-within]:-outline-offset-2 has-[input:focus-within]:outline-indigo-300">
+								<input id="fullName" type="text" placeholder="Type your name.." formControlName="fullName" class="block grow rounded-md py-1.5 px-3 text-base bg-white placeholder:text-gray-400 focus:outline-none sm:text-sm/6 font-normal" />
+							</div>
+						</div>
+					</div>
+					<div class="mb-6 md:mb-10">
+						<label for="email" class="text-[#7f8387] block text-sm/6 font-medium">Email*</label>
+						<div class="mt-2">
+							<div class="flex items-center rounded-md outline-1 -outline-offset-1 outline-gray-300 has-[input:focus-within]:outline-2 has-[input:focus-within]:-outline-offset-2 has-[input:focus-within]:outline-indigo-300">
+								<input id="email" type="email" placeholder="Type your email.." formControlName="email" class="block grow rounded-md py-1.5 px-3 text-base bg-white placeholder:text-gray-400 focus:outline-none sm:text-sm/6 font-normal" />
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="flow-root">
+					<p class="my-4 md:my-6 text-sm md:text-base">Your location</p>
+					<div class="mb-6 md:mb-10 flex flex-col sm:flex-row gap-5">
+						<div class="flex-1">
+							<label for="city" class="text-[#7f8387] block text-sm/6 font-medium">City</label>
+							<div class="mt-2">
+								<div class="flex items-center rounded-md outline-1 -outline-offset-1 outline-gray-300 has-[input:focus-within]:outline-2 has-[input:focus-within]:-outline-offset-2 has-[input:focus-within]:outline-indigo-300">
+									<input id="city" type="text" placeholder="ex. Thessaloniki" formControlName="city" class="block grow rounded-md py-1.5 px-3 text-base bg-white placeholder:text-gray-400 focus:outline-none sm:text-sm/6 font-normal" />
+								</div>
+							</div>
+						</div>
+						<div class="flex-1">
+							<label for="postalCode" class="text-[#7f8387] block text-sm/6 font-medium">Postal Code</label>
+							<div class="mt-2">
+								<div class="flex items-center rounded-md outline-1 -outline-offset-1 outline-gray-300 has-[input:focus-within]:outline-2 has-[input:focus-within]:-outline-offset-2 has-[input:focus-within]:outline-indigo-300">
+									<input id="postalCode" type="text" placeholder="ex. 545454" formControlName="postalCode" class="block grow rounded-md py-1.5 px-3 text-base bg-white placeholder:text-gray-400 focus:outline-none sm:text-sm/6 font-normal" />
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="mb-6 md:mb-10">
+						<label for="address" class="text-[#7f8387] block text-sm/6 font-medium">Address</label>
+						<div class="mt-2 relative">
+							<div class="flex items-center rounded-md outline-1 -outline-offset-1 outline-gray-300 has-[input:focus-within]:outline-2 has-[input:focus-within]:-outline-offset-2 has-[input:focus-within]:outline-indigo-300">
+								<input id="address" name="address-field" type="text" placeholder="ex. Aristotelous 16" formControlName="address" autocomplete="new-address" class="block grow rounded-md py-1.5 px-3 text-base bg-white placeholder:text-gray-400 focus:outline-none sm:text-sm/6 font-normal" (focus)="showSuggestions = addressSuggestions.length > 0" (blur)="hideSuggestionsWithDelay()" />
+							</div>
+							@if(showSuggestions) {
+								<ul class="absolute z-10 left-0 right-0 bg-white border border-gray-200 rounded-md mt-1 shadow-lg max-h-56 overflow-auto">
+									@for(suggestion of addressSuggestions; track suggestion.place_id) {
+										<li (mousedown)="selectSuggestion(suggestion)" class="px-4 py-2 cursor-pointer hover:bg-indigo-100">
+											{{ suggestion.display_name }}
+										</li>
+									}
+									@if(addressSuggestions.length === 0) {
+										<li class="px-4 py-2 text-gray-400">No suggestions</li>
+									}
+								</ul>
+							}
+						</div>
+					</div>
+				</div>
+				<div class="flow-root">
+					<p class="my-4 md:my-6 text-sm md:text-base">Your message</p>
+					<div class="mb-6 md:mb-10">
+						<label for="message" class="text-[#7f8387] block text-sm/6 font-medium">Send us a meow!</label>
+						<div class="mt-2">
+							<div class="flex items-center rounded-md outline-1 -outline-offset-1 outline-gray-300 has-[input:focus-within]:outline-2 has-[input:focus-within]:-outline-offset-2 has-[input:focus-within]:outline-indigo-300">
+								<textarea id="message" placeholder="Type your message here..." formControlName="message" class="h-[150px] block grow rounded-md py-1.5 px-3 text-base resize-none bg-white placeholder:text-gray-400 focus:outline-none sm:text-sm/6 font-normal"></textarea>
+							</div>
+						</div>
+					</div>	
+					<div class="mb-6 md:mb-10">
+						<div class="flex flex-row items-center">
+							<input type="checkbox" id="terms" formControlName="terms"
+								class="h-4 w-4 rounded-md bg-white accent-gray-400 ring-2 ring-gray-400 ring-inset" />
+							<label for="terms" class="ml-2 block text-sm font-medium text-[#7f8387]">Terms and Conditions</label>
+						</div>
+						<div class="flex items-center justify-end mt-2 gap-3">
+							@if(isSubmitting) {
+								<span class="inline-block h-5 w-5 border-2 border-(--primary-color) border-t-transparent rounded-full animate-spin" aria-label="Sending"></span>
+							}
+							<button 
+								[disabled]="contactForm.invalid || isSubmitting" 
+								[class.disabled]="contactForm.invalid || isSubmitting"
+								type="submit" 
+								class="rounded-md bg-[#ef7878] hover:bg-(--secondary-color) text-white text-sm font-normal px-3 py-2 cursor-pointer transition-colors">
+								{{ isSubmitting ? 'Sending…' : 'Send message' }}
+							</button>
+						</div>
+					</div>	
+					@if(submitMessage) {
+						<p class="text-sm md:text-base text-[#ef7878] font-medium">{{ submitMessage }}</p>
+					}		
+				</div>
+			</form>
+		</div>
+		<div class="flex-1 xl:ml-10 pb-10 xl:pb-20 max-w-full xl:max-w-lg">
+			<p class="text-xl md:text-2xl pb-3 border-b-1 border-gray-300">Location</p>
+			<p class="py-4 md:py-5 text-base md:text-xl">
+				<i class="fa-solid fa-location-dot text-[#ef7878] pe-3"></i>
+				<span class="text-[#7f8387] font-medium">Aristotelous 16, Thessaloniki</span>
+			</p>
+			<app-map></app-map>
+			<p class="py-4 md:py-5 text-xl md:text-2xl text-right pb-3 border-b-1 border-gray-300">Headquarters</p>
+			<p class="py-4 md:py-5 font-medium text-sm md:text-base text-right text-[#3d2929]">
+				Aristotelous 16, 54658<br/>
+				Thessaloniki, Greece<br/>
+				<br/>
+				<strong>hey@smellycat.gr</strong><br/>
+				+2311290998<br/>
+			</p>
+		</div>
+		<img src="/png/cat.png" alt="Cat" class="hidden xl:block absolute -bottom-45 right-30 w-[500px] h-auto pointer-events-none -z-1" />
+	</div>
+</section>

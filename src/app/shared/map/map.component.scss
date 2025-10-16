@@ -1,0 +1,12 @@
+#map {
+  filter: grayscale(100%);
+  -webkit-filter: grayscale(100%);
+  min-height: 250px;
+  height: 100%;
+  width: 100%;
+  border-radius: 0.5rem;
+  
+  @media (max-width: 640px) {
+    min-height: 200px;
+  }
+}
